@@ -1,0 +1,29 @@
+server:
+  port: 8765
+
+spring:
+  application:
+    name: api-gateway-server
+  cloud:
+    gateway:
+      routes:
+        - id: currencyExchange
+          uri: lb://currency-exchange
+          predicates:
+            - Path=/currency-exchange/**
+        - id: currencyConversionExchange
+          uri: lb://currency-conversion-exchange
+          predicates:
+            - Path=/currency-conversion/**
+
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+
+
